@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Connexion - Escape Game Junior</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="login-container">
+    <!-- Section de connexion -->
+    <div id="loginSection">
+      <h1><i class="fas fa-lock"></i> Connexion</h1>
+      <div class="subtitle">Accède à ton aventure mystérieuse</div>
+      
+      <div class="adventure-icons">
+        <i class="fas fa-dragon adventure-icon"></i>
+        <i class="fas fa-search adventure-icon"></i>
+        <i class="fas fa-brain adventure-icon"></i>
+        <i class="fas fa-water adventure-icon"></i>
+        <i class="fas fa-laptop-code adventure-icon"></i>    
+        <i class="fas fa-landmark adventure-icon"></i>
+      </div>
+      
+      <div class="form-group">
+        <label for="loginEmail"><i class="fas fa-envelope"></i> Email</label>
+        <input type="email" id="loginEmail" placeholder="ton@email.com" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="loginPassword"><i class="fas fa-key"></i> Mot de passe</label>
+        <input type="password" id="loginPassword" placeholder="Ton mot de passe secret" required>
+      </div>
+      
+      <div class="error-message" id="loginError"></div>
+      
+      <button class="btn-login" id="loginButton">
+        <i class="fas fa-sign-in-alt"></i> Se connecter
+      </button>
+      
+      <div class="switch-form">
+        Pas encore de compte? <a id="showRegister">Rejoins l'aventure !</a>
+      </div>
+    </div>
+    
+    <!-- Section d'inscription -->
+    <div id="registerSection" style="display: none;">
+      <h1><i class="fas fa-user-plus"></i> Inscription</h1>
+      <div class="subtitle">Crée ton compte d'aventurier</div>
+      
+      <div class="adventure-icons">
+        <i class="fas fa-dragon adventure-icon"></i>
+        <i class="fas fa-search adventure-icon"></i>
+        <i class="fas fa-brain adventure-icon"></i>
+        <i class="fas fa-water adventure-icon"></i>
+        <i class="fas fa-laptop-code adventure-icon"></i>
+        <i class="fas fa-landmark adventure-icon"></i>
+      </div>
+      
+      <div class="form-group">
+        <label for="registerEmail"><i class="fas fa-envelope"></i> Email</label>
+        <input type="email" id="registerEmail" placeholder="ton@email.com" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="registerPassword"><i class="fas fa-key"></i> Mot de passe</label>
+        <input type="password" id="registerPassword" placeholder="Crée un mot de passe fort" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="confirmPassword"><i class="fas fa-key"></i> Confirme le mot de passe</label>
+        <input type="password" id="confirmPassword" placeholder="Répète ton mot de passe" required>
+      </div>
+      
+      <div class="error-message" id="registerError"></div>
+      
+      <button class="btn-login" id="registerButton">
+        <i class="fas fa-user-check"></i> S'inscrire
+      </button>
+      
+      <div class="switch-form">
+        Déjà un compte? <a id="showLogin">Connecte-toi !</a>
+      </div>
+    </div>
+    
+    <!-- Section de bienvenue après connexion -->
+    <div id="welcomeSection" style="display: none;">
+      <div class="welcome-message" id="welcomeText"></div>
+      
+      <div class="adventure-icons">
+        <i class="fas fa-dragon adventure-icon"></i>
+        <i class="fas fa-search adventure-icon"></i>
+        <i class="fas fa-brain adventure-icon"></i>
+        <i class="fas fa-water adventure-icon"></i>
+        <i class="fas fa-laptop-code adventure-icon"></i>
+        <i class="fas fa-landmark adventure-icon"></i>
+      </div>
+      
+      <button id="startButton">
+        <i class="fas fa-play"></i> Commencer l'aventure
+      </button>
+    </div>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>

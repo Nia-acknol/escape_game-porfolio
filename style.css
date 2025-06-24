@@ -1,0 +1,341 @@
+/* style.css - Fichier de style global */
+
+/* Réinitialisation */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corps de page */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle, #0c0f1d 0%, #070913 100%);
+  color: #e0e0ff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+/* Particules flottantes */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(#0af 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Conteneur */
+.container {
+  position: relative;
+  z-index: 10;
+  max-width: 700px;
+  width: 100%;
+  background: rgba(20, 20, 40, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid rgba(100, 150, 255, 0.3);
+  box-shadow:
+    0 0 20px rgba(0, 170, 255, 0.3),
+    0 0 40px rgba(100, 0, 255, 0.2),
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Titres */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 25px;
+  color: #fff;
+  text-shadow: 0 0 10px #0af, 0 0 20px #0af;
+  letter-spacing: 1px;
+}
+
+/* Description */
+.description {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #a0a0ff;
+}
+
+/* Énigme */
+.enigme-content {
+  animation: fadeIn 1s ease-out;
+}
+
+.question {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(30, 30, 60, 0.5);
+  border-radius: 12px;
+  border-left: 3px solid #0af;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: left;
+}
+
+/* Input */
+#reponse {
+  width: 100%;
+  max-width: 500px;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  background: rgba(10, 15, 40, 0.7);
+  border: 2px solid rgba(100, 150, 255, 0.4);
+  border-radius: 10px;
+  color: #fff;
+  margin: 20px auto;
+  display: block;
+  transition: all 0.3s;
+  box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
+}
+
+#reponse:focus {
+  outline: none;
+  border-color: #0af;
+  box-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
+  background: rgba(20, 30, 60, 0.8);
+}
+
+/* Boutons */
+.buttons-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+button {
+  padding: 15px 35px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.3s;
+  letter-spacing: 1px;
+  min-width: 220px;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(45deg, #0077ff, #00ccff, #0077ff);
+  opacity: 0.8;
+  z-index: -1;
+  transition: all 0.3s;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: -5px; left: -5px; right: -5px; bottom: -5px;
+  border-radius: 15px;
+  background: linear-gradient(45deg, #0077ff, #00ccff, #7700ff, #0077ff);
+  background-size: 400% 400%;
+  animation: neonBorder 3s linear infinite;
+  opacity: 0.7;
+  z-index: -2;
+}
+
+#validerBtn::before {
+  background: linear-gradient(45deg, #00b894, #00cec9);
+}
+
+#indiceBtn::before {
+  background: linear-gradient(45deg, #f0932b, #f9ca24);
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:hover::before {
+  opacity: 1;
+}
+
+/* Chrono */
+#chronoText {
+  font-size: 1.3rem;
+  margin: 20px 0;
+  color: #ff6b6b;
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+  animation: pulse 1.5s infinite;
+}
+
+/* Indice */
+#indiceText {
+  min-height: 60px;
+  padding: 15px;
+  margin: 20px auto;
+  background: rgba(40, 30, 80, 0.6);
+  border-left: 3px solid #f9ca24;
+  border-radius: 10px;
+  max-width: 90%;
+  text-align: left;
+}
+
+/* Score */
+#scoreDisplay {
+  font-size: 1.3rem;
+  margin-top: 20px;
+  color: #00cec9;
+  font-weight: bold;
+}
+
+/* Résultats */
+.result-screen {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.result-screen h2 {
+  font-size: 2.5rem;
+  color: #00cec9;
+  margin-bottom: 20px;
+  text-shadow: 0 0 15px rgba(0, 206, 201, 0.7);
+}
+
+.stars {
+  font-size: 3rem;
+  margin: 20px 0;
+  color: #f9ca24;
+  text-shadow: 0 0 10px rgba(249, 202, 36, 0.7);
+}
+
+/*style pour la zone d'explication*/
+.explanationBox {
+  margin-top: 15px;
+  padding: 10px;
+  border-left: 3px solid #333;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-style: italic;
+  display: block;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Sélection de thèmes */
+.themes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.theme-card {
+  background: rgba(30,30,60,0.5);
+  border-left: 3px solid #0af;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.theme-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,170,255,0.4);
+}
+
+/* Bouton retour au menu des thème */
+#menuBtn {
+  padding: 15px 35px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.3s;
+  letter-spacing: 1px;
+  min-width: 220px;
+}
+
+#menuBtn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+#menuBtn i {
+  font-size: 18px;
+}
+
+.theme-card a {
+  color: #e0e0ff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: block;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes neonBorder {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse {
+  0%   { opacity: 0.8; }
+  50%  { opacity: 1; text-shadow: 0 0 15px rgba(255,107,107,0.8); }
+  100% { opacity: 0.8; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container { padding: 20px; border-radius: 15px; }
+  h1 { font-size: 2rem; }
+  .question { font-size: 1.2rem; padding: 15px; }
+  #reponse { padding: 12px 15px; font-size: 1.1rem; }
+  .buttons-group { flex-direction: column; gap: 15px; }
+  button { width: 100%; padding: 14px; font-size: 1.1rem; }
+  #chronoText { font-size: 1.2rem; }
+  .result-screen h2 { font-size: 2rem; }
+}
+
+@media (max-width: 480px) {
+  body { padding: 10px; }
+  .container { padding: 15px; border-radius: 12px; }
+  h1 { font-size: 1.8rem; margin-bottom: 15px; }
+  .description { font-size: 1rem; margin-bottom: 20px; }
+  .question { font-size: 1rem; padding: 12px; margin-bottom: 20px; }
+  #reponse { padding: 10px 12px; font-size: 1rem; }
+  button { padding: 12px; font-size: 1rem; }
+  #indiceText { font-size: 0.9rem; padding: 10px; }
+  #chronoText { font-size: 1.1rem; }
+  .result-screen h2 { font-size: 1.8rem; }
+  .stars { font-size: 2.5rem; }
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Choix du Thème - Escape Game</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Choisis ton aventure</h1>
+    <p class="description">Sélectionne un univers mystérieux</p>
+
+    <div class="themes-container" id="themesContainer">
+      <!-- Les cartes de thèmes seront ajoutées dynamiquement -->
+    </div>
+  </div>
+
+  <script>
+    // Vérifier si l'utilisateur est connecté
+    const users = JSON.parse(localStorage.getItem('escapeGameUsers')) || [];
+    if (users.length === 0) {
+      window.location.href = 'index.html';
+    }
+
+    // Tableau des thèmes avec leurs données
+    const themes = [
+      {
+        name: "Enquête Policière",
+        icon: "fas fa-search",
+        link: "enquete-policiere.html",
+        color: "#3498db"
+      },
+      {
+        name: "Mythologie Ancienne",
+        icon: "fas fa-landmark",
+        link: "mythologie-ancienne.html",
+        color: "#f1c40f"
+      },
+      {
+        name: "Univers Fantasy",
+        icon: "fas fa-dragon",
+        link: "univers-fantasy.html",
+        color: "#9b59b6"
+      },
+      {
+        name: "Monde Océanique",
+        icon: "fas fa-water",
+        link: "monde-oceanique.html",
+        color: "#1abc9c"
+      },
+      {
+        name: "Informatique",
+        icon: "fas fa-microchip",
+        link: "informatique.html",
+        color: "#27ae60"
+      },
+      {
+        name: "Psychologie & illusions",
+        icon: "fas fa-brain",
+        link: "psychologie-illusions.html",
+        color: "#e74c3c"
+      }
+    ];
+
+    // Mélanger aléatoirement l'ordre des thèmes
+    function shuffleThemes(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Afficher les thèmes mélangés
+    function displayThemes() {
+      const container = document.getElementById('themesContainer');
+      const shuffledThemes = shuffleThemes([...themes]);
+      
+      shuffledThemes.forEach(theme => {
+        const card = document.createElement('div');
+        card.className = 'theme-card';
+        card.innerHTML = `
+          <a href="${theme.link}">
+            <i class="${theme.icon}" style="color: ${theme.color};"></i> 
+            ${theme.name}
+          </a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Charger les thèmes au démarrage
+    window.addEventListener('DOMContentLoaded', displayThemes);
+  </script>
+</body>
+</html>
