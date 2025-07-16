@@ -1,115 +1,147 @@
-// Gestion des formulaires
-document.getElementById('showRegister').addEventListener('click', () => {
-  document.getElementById('loginSection').style.display = 'none';
-  document.getElementById('registerSection').style.display = 'block';
-  document.getElementById('registerError').style.display = 'none';
+//  Gestion des éléments HTML
+const loginSection = document.getElementById('loginSection');
+const registerSection = document.getElementById('registerSection');
+const welcomeSection = document.getElementById('welcomeSection');
+const loginEmail = document.getElementById('loginEmail');
+const loginPassword = document.getElementById('loginPassword');
+const loginError = document.getElementById('loginError');
+const loginButton = document.getElementById('loginButton');
+
+const registerEmail = document.getElementById('registerEmail');
+const registerPassword = document.getElementById('registerPassword');
+const confirmPassword = document.getElementById('confirmPassword');
+const registerError = document.getElementById('registerError');
+const registerButton = document.getElementById('registerButton');
+
+const showRegister = document.getElementById('showRegister');
+const showLogin = document.getElementById('showLogin');
+const welcomeText = document.getElementById('welcomeText');
+const startButton = document.getElementById('startButton');
+
+//  Validation
+function isValidEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+}
+
+function isStrongPassword(password) {
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+  return regex.test(password);
+}
+
+function showError(element, message) {
+  element.textContent = message;
+  element.style.display = 'block';
+  setTimeout(() => {
+    element.style.display = 'none';
+  }, 3000);
+}
+
+//  Simulation de base de données utilisateurs
+let users = JSON.parse(localStorage.getItem('escapeGameUsers')) || [];
+
+//  Connexion
+loginButton.addEventListener('click', () => {
+  const email = loginEmail.value.trim();
+  const password = loginPassword.value.trim();
+
+  if (!email || !password) {
+    showError(loginError, 'Email et mot de passe requis !');
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    showError(loginError, 'Format d’email invalide.');
+    return;
+  }
+
+  const user = users.find(u => u.email === email && u.password === password);
+
+  if (!user) {
+    showError(loginError, 'Email ou mot de passe incorrect !');
+    return;
+  }
+
+  // Succès : afficher message de bienvenue
+  showWelcomeScreen(email);
 });
 
-document.getElementById('showLogin').addEventListener('click', () => {
-  document.getElementById('registerSection').style.display = 'none';
-  document.getElementById('loginSection').style.display = 'block';
-  document.getElementById('loginError').style.display = 'none';
-});
+//  Inscription
+registerButton.addEventListener('click', () => {
+  const email = registerEmail.value.trim();
+  const password = registerPassword.value.trim();
+  const confirm = confirmPassword.value.trim();
 
-// Simulation de base de données utilisateurs
-const users = JSON.parse(localStorage.getItem('escapeGameUsers')) || [];
+  if (!email || !password || !confirm) {
+    showError(registerError, 'Tous les champs sont obligatoires.');
+    return;
+  }
 
-// Enregistrement d'un nouvel utilisateur
-document.getElementById('registerButton').addEventListener('click', () => {
-  const email = document.getElementById('registerEmail').value;
-  const password = document.getElementById('registerPassword').value;
-  const confirmPassword = document.getElementById('confirmPassword').value;
-  const errorElement = document.getElementById('registerError');
-  
-  // Validation
-  if (!email || !password || !confirmPassword) {
-    errorElement.textContent = 'Tous les champs sont requis !';
-    errorElement.style.display = 'block';
+  if (!isValidEmail(email)) {
+    showError(registerError, 'Format d’email invalide.');
     return;
   }
-  
-  if (password !== confirmPassword) {
-    errorElement.textContent = 'Les mots de passe ne correspondent pas !';
-    errorElement.style.display = 'block';
+
+  if (!isStrongPassword(password)) {
+    showError(registerError, 'Mot de passe trop faible (min 8 caractères, 1 maj, 1 min, 1 chiffre).');
     return;
   }
-  
-  if (password.length < 6) {
-    errorElement.textContent = 'Le mot de passe doit contenir au moins 6 caractères !';
-    errorElement.style.display = 'block';
+
+  if (password !== confirm) {
+    showError(registerError, 'Les mots de passe ne correspondent pas.');
     return;
   }
-  
-  // Vérifier si l'email est déjà utilisé
+
   if (users.some(user => user.email === email)) {
-    errorElement.textContent = 'Cet email est déjà utilisé !';
-    errorElement.style.display = 'block';
+    showError(registerError, 'Cet email est déjà utilisé !');
     return;
   }
-  
-  // Ajouter le nouvel utilisateur
+
   users.push({ email, password });
   localStorage.setItem('escapeGameUsers', JSON.stringify(users));
-  
-  // Connecter automatiquement l'utilisateur
-  showWelcomeScreen();
+
+  // Succès : afficher message de bienvenue
+  showWelcomeScreen(email);
 });
 
-// Connexion d'un utilisateur existant
-document.getElementById('loginButton').addEventListener('click', () => {
-  const email = document.getElementById('loginEmail').value;
-  const password = document.getElementById('loginPassword').value;
-  const errorElement = document.getElementById('loginError');
-  
-  // Validation
-  if (!email || !password) {
-    errorElement.textContent = 'Email et mot de passe requis !';
-    errorElement.style.display = 'block';
-    return;
-  }
-  
-  // Vérifier les identifiants
-  const user = users.find(u => u.email === email && u.password === password);
-  
-  if (!user) {
-    errorElement.textContent = 'Email ou mot de passe incorrect !';
-    errorElement.style.display = 'block';
-    return;
-  }
-  
-  // Afficher l'écran de bienvenue
-  showWelcomeScreen();
-});
+//  Écran de bienvenue avec animation
+function showWelcomeScreen(email) {
+  loginSection.style.display = 'none';
+  registerSection.style.display = 'none';
+  welcomeSection.style.display = 'block';
 
-// Fonction pour afficher l'écran de bienvenue avec l'animation de texte
-function showWelcomeScreen() {
-  // Masquer les formulaires
-  document.getElementById('loginSection').style.display = 'none';
-  document.getElementById('registerSection').style.display = 'none';
-  document.getElementById('welcomeSection').style.display = 'block';
-  
-  const welcomeText = document.getElementById('welcomeText');
-  const message = "Escape Game : Sauras-tu t'échapper ?";
-  let i = 0;
-  
-  // Réinitialiser le texte
+  const username = email.split('@')[0];
+  const message = `Bienvenue ${username} ! Escape Game : Sauras-tu t'échapper ?`;
   welcomeText.innerHTML = '';
-  
-  // Animation de frappe
+  let i = 0;
+
   function typeWriter() {
     if (i < message.length) {
       welcomeText.innerHTML += message.charAt(i);
       i++;
-      setTimeout(typeWriter, 100);
+      setTimeout(typeWriter, 70);
     } else {
-      document.getElementById('startButton').style.display = 'inline-block';
+      startButton.style.display = 'inline-block';
     }
   }
-  
+
   typeWriter();
 }
 
-// Redirection vers la page des thèmes
-document.getElementById('startButton').addEventListener('click', () => {
+//  Redirection vers la page des thèmes
+startButton.addEventListener('click', () => {
   window.location.href = 'themes.html';
+});
+
+//  Navigation entre les formulaires
+showRegister.addEventListener('click', () => {
+  loginSection.style.display = 'none';
+  registerSection.style.display = 'block';
+  registerError.style.display = 'none';
+});
+
+showLogin.addEventListener('click', () => {
+  registerSection.style.display = 'none';
+  loginSection.style.display = 'block';
+  loginError.style.display = 'none';
 });
